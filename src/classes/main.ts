@@ -2,6 +2,7 @@ import {Painter} from './painter';
 import {Board} from './board';
 import {Snake} from './snake';
 import {Food} from "./food";
+import {Score} from "./score";
 
 let canvas: any = document.getElementById('canvas');
 
@@ -9,6 +10,7 @@ let startButton: any = document.getElementById('start-button');
 let startContent: any = document.getElementById('start-content');
 let mainContent: any = document.getElementById('main-content');
 let gameOverText: any = document.getElementById('game-over-msg');
+let scoreContainer: any = document.getElementById('score');
 
 startButton.addEventListener("click", function () {
     startContent.className = 'hide';
@@ -20,18 +22,14 @@ let gameLoop:any;
 
 
 function init(): void {
-    // let firstTimeChecked: boolean = false;
-    // var painter = new Painter(canvas);
-    // var snake:Snake = new Snake(6, 'green', 'darkgreen');
-    // var food:Food = new Food();
-    // var board:Board = new Board(painter, snake, food, 450, 650, 20);
-    // board.init();
+    var painter = new Painter(canvas);
+    var snake:Snake = new Snake(5, 'green', 'darkgreen');
+    var food:Food = new Food();
+    var score: Score = new Score(0, scoreContainer);
+    var board:Board = new Board(painter, snake, food, 600, 600, 20, score);
+    board.init();
+    let intervalCount: number = 200; 
     gameLoop = setInterval(function () {
-        let painter = new Painter(canvas);
-        let snake:Snake = new Snake(6, 'green', 'darkgreen');
-        let food:Food = new Food();
-        let board:Board = new Board(painter, snake, food, 450, 650, 20);
-
         board.init();
         snake.move();
 
@@ -41,13 +39,16 @@ function init(): void {
             startContent.className = 'show';
             gameOverText.className = 'show';
             startButton.innerHTML = "Start Again";
-            startButton.setAttribute('disabled', false);
-
         }
 
-        // if(snake.eatFood(food.position)){
-        //     firstTimeChecked = false;
-        // }
+        if(snake.eatFood(food.position)){
+            food.createFood();
+            board.drawSnake();
+            score.scoreIncrement();
+            board.drawScore();
+            board.drawFood();
+            intervalCount -= 20; 
+        }
 
         document.onkeydown = function (event) {
             let keyCode:number = event.keyCode;
@@ -55,7 +56,8 @@ function init(): void {
         }
 
         board.drawSnake();
-        // board.drawFood();
-    }, 150)
+        board.drawFood();
+        board.drawScore();
+    }, intervalCount)
 }
 

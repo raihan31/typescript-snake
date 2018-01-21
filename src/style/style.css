@@ -16,9 +16,20 @@ body {
 
 #canvas {
     position: absolute;
-    margin: 20px;
-    top: calc(50% - 225px);
-    left: calc(50% - 325px);
+    top: calc(50% - 300px);
+    left: calc(50% - 300px);
+    opacity: 0.6;
+}
+.canvas-container {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    top: calc(50% - 300px);
+    left: calc(50% - 300px);
+    background: url('../images/snakeGround.jpg') no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #start-button,
@@ -54,6 +65,19 @@ body {
     background-size: cover;
 }
 
+#score {
+    position: absolute;
+    top: calc(50% - 350px);
+    left: calc(50% - 350px);
+    width: 250px;
+    height: 50px;
+    font-size: 25px;
+    color: #17a2b8;;
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+}
+
 .show {
     display: block !important;
 }
@@ -61,3 +85,4 @@ body {
 .hide {
     display: none !important;
 }
+

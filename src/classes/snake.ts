@@ -67,7 +67,8 @@ export class Snake implements ISnake{
 
     eatFood(food:IPosition): boolean{
         let head:IPosition = this.cells[0];
-        if(food.x == head.x && food.y == head.y){
+        if(food.x == head.x && food.y == head.y ){
+            this.cells.push(food);
             return true;
         } else {
             return false;
